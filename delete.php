@@ -1,18 +1,16 @@
 <?php
-session_start(); // Start the session to access session variables
+session_start();
 
 include("database.php");
 
-$owner_id = $_SESSION['user_id']; // Get the logged-in user's ID from the session
+$owner_id = $_SESSION['user_id']; 
 $id = $_GET['id'];
 
-// Retrieve existing property data
 $sql = "SELECT * FROM properties WHERE id='$id'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    // Check if the current user is the owner of the property
     if ($row['owner_id'] != $owner_id) {
         die("You do not have permission to delete this property.");
     }
@@ -20,7 +18,6 @@ if ($result->num_rows > 0) {
     die("Property not found.");
 }
 
-// Proceed with deletion logic
 $target_dir = __DIR__ . "/uploads/";
 $old_image = $target_dir . $row['image'];
 if (file_exists($old_image)) {

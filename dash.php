@@ -7,11 +7,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id']; 
-
-// Initialize variables
 $property_id = isset($_GET['property_id']) ? intval($_GET['property_id']) : 0;
 
-// Fetch properties
 $query = "SELECT * FROM properties";
 if (isset($_GET['title']) || isset($_GET['min_price']) || isset($_GET['max_price']) || isset($_GET['min_area']) || isset($_GET['max_area'])) {
     $conditions = [];
